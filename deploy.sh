@@ -9,11 +9,13 @@ then
 fi
 
 ssh $device mkdir -p ~/workspace/core-local-infra
-scp -r proxy shared $device:~/workspace/core-local-infra/
+scp -r proxy shared dnsmasq $device:~/workspace/core-local-infra/
 echo "=================="
 echo "Run the following:"
-echo "ssh $device"
 echo "cd ~/workspace/core-local-infra/shared"
+echo "echo $gitCommit > code.version"
+echo "docker compose up -d"
+echo "cd ~/workspace/core-local-infra/dnsmasq"
 echo "echo $gitCommit > code.version"
 echo "docker compose up -d"
 echo "cd ~/workspace/core-local-infra/proxy"
