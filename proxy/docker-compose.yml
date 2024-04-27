@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  proxy:
+    image: 'core-local-infra_proxy:latest'
+    build:
+      context: .
+      labels:
+        # will default to 'no_commit_info' if the env var 'commit' is not specified
+        commit: ${commit-no_commit_info}
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./static/:/usr/local/apache2/static/
+      - ./conf.d:/usr/local/apache2/conf.d/
+      - ./docker-resources/default-virtual-host.conf:/usr/local/apache2/conf/default-virtual-host.conf
+      - ./security/:/usr/local/apache2/security/
+    networks:
+      - shared-private
+      - default
+
+networks:
+  shared-private:
+    external: true
+    name: shared_shared-private
