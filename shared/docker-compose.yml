@@ -9,3 +9,4 @@ services:
 networks:
   shared-private:
     internal: true
+    name: core-local-infra_shared-private
