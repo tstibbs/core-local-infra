@@ -1,11 +1,16 @@
-version: '2'
 services:
   dns:
     restart: unless-stopped
-    build: .
+    image: 'core-local-infra_dnsmasq:latest'
+    build:
+      context: .
+      labels:
+        # will default to 'no_commit_info' if the env var 'commit' is not specified
+        commit: ${commit-no_commit_info}
     volumes:
       - ./dnsmasq.conf:/etc/dnsmasq.conf
     ports:
-      - "53:53/udp"
+        # declare BIND_IP in .env
+      - "${BIND_IP}:53:53/udp"
     cap_add:
       - NET_ADMIN
