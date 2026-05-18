@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   proxy:
     image: 'core-local-infra_proxy:latest'
